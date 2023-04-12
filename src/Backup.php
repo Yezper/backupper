@@ -8,22 +8,22 @@ class Backup
     {
         $jobs = config('sources');
 
-        log('Starting backup');
+        log_message('Starting backup');
 
         $mainStartTime = microtime(true);
 
         foreach ($jobs as $job) {
-            log("Starting backup job '{$job['job_name']}'");
+            log_message("Starting backup job '{$job['job_name']}'");
 
             $this->performBackup($job);
             $this->cleanupBackups($job);
         }
 
-        log("Cleaning up log");
+        log_message("Cleaning up log");
         $this->cleanupLog();
 
         $totalDuration = microtime(true) - $mainStartTime;
-        log("Finished all backup jobs in " . format_duration($totalDuration));
+        log_message("Finished all backup jobs in " . format_duration($totalDuration));
 
         return 0;
     }
@@ -31,7 +31,7 @@ class Backup
     protected function performBackup(array $job): bool
     {
         $jobStartTime = microtime(true);
-        log("Starting backup job '{$job['job_name']}'");
+        log_message("Starting backup job '{$job['job_name']}'");
 
         // Configure backup
         $timestamp = date('YmdHis');
@@ -43,7 +43,7 @@ class Backup
         exec($command);
 
         $jobDuration = microtime(true) - $jobStartTime;
-        log("Finished backup job '{$job['job_name']}' in " . format_duration($jobDuration));
+        log_message("Finished backup job '{$job['job_name']}' in " . format_duration($jobDuration));
 
         return true;
     }
@@ -62,7 +62,7 @@ class Backup
 
                 if ($existingBackupDate->getTimestamp() <= $cutoffTime) {
                     $fileName = basename($existingBackup);
-                    log("Deleting backup $fileName as it is older than $daysToKeep days");
+                    log_message("Deleting backup $fileName as it is older than $daysToKeep days");
                     unlink($existingBackup);
                     $deletedBackup = true;
                 }
@@ -70,7 +70,7 @@ class Backup
         }
 
         if (!$deletedBackup) {
-            log("Skipping cleanup; no existing backups older than $daysToKeep days");
+            log_message("Skipping cleanup; no existing backups older than $daysToKeep days");
         }
 
         return true;
