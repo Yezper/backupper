@@ -3,7 +3,7 @@
 return [
     'app' => [
         'logging' => [
-            'file_name' => __DIR__ . '/backup.log',
+            'file_name' => __DIR__ . '/../backup.log',
             'lines_to_keep' => 10,
         ],
     ],

@@ -44,8 +44,8 @@ namespace {
         }
     }
 
-    if (!function_exists('log')) {
-        function log(string $message, bool $outputToScreen = true): bool
+    if (!function_exists('log_message')) {
+        function log_message(string $message, bool $outputToScreen = true): bool
         {
             $logFile = config('app.logging.file_name');
             $timestamp = date('Y-m-d H:i:s');
