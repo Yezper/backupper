@@ -1,0 +1,29 @@
+{
+    "name": "yezper/backupper",
+    "description": "Backup folders and cleanup old backups",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jesper Nielsen",
+            "email": "yezper@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Yezper\\Backupper\\": "src/"
+        },
+        "files": [
+            "src/Helpers/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
